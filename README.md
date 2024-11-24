@@ -13,7 +13,21 @@ Cada vez que un proceso acceda a la memoria compartida podría almacenar localme
 
 Lo anterior ayudaría a solucionar en cierta medida el cuello de botella. Funcionaría bien en un caso donde los paralelos tengan bastantes cupos y se trabajen con pocas go routinas (si se tienen 100 paralelos con 200 cupos y asumiendo un tiempo de inscripcion = 1[s] es poco probable que por ejemplo 3 go routinas terminen el trabajo rápidamente, por lo cual no es necesario consultar a la memoria compartida cada vez).
 
-**¿Cómo podría mejorar el sistema B para que sea más eficiente?**
-El sistema B reduciría su eficiencia cuando algunos
+**¿Cómo podría mejorar el sistema B para que sea más eficiente?**  
+El problema del sistema B es la carga que implica en la red, por cada solicitud en solicitudes.txt se enviará una request a todos los nodos por el token, además, al existir un token por cada paralelo el tráfico de la red es mucho mayor. Para mejorar lo anterior se propone que cada go routine pueda leer más solicitudes a la vez (pero no demasiadas para evitar esperar por el acceso a paralelos), de esta forma una go routine podría realizar inscripciones simultáneamente asegurando confiabilidad.
+
+**Escriba una analogía de los sistemas A y B con un sistema de inscripción presencial**  
+Para realizar una analogía consideraremos las go routines como personas que se mueven a través de los distintos módulos: solicitudes sería similar a una caja (clientes esperando a ser llamados), paralelos sería la universidad (conjunto de salas, en cada sala hay un profesor que sabe cuantos cupos le quedan a su paralelo), e inscipciones se llevaría acabo por un grupo de encargados afuera de la universidad.  
+
+Para el sistema A, la persona que simula la go routine atiende al cliente que se encuentre en la caja para esuchar su solicitud, posteriormente, se dirije a la universidad y cierra la puerta de la entrada, se dirije a las salas indicadas por la solicitud en orden hasta el primer profesor que le indique que quedan cupos, en ese momento abre la puerta de la universidad (así otra persona podrá entrar a la universidad) y se dirige al encargado de inscribir dicho paralelo, el proceso se repite hasta que no hayan clientes en la caja.  
+
+Para el sistema B serían las mismas analogías, sin embargo, ahora al entrar a la universidad no se cierra la puerta, sin embargo, cuando se ingresa a una sala para preguntarle al profesor esta debe ser cerrada (también puede ser interpretado como que el profesor sólo puede hablar con una persona a la vez) una vez termine de preguntarle acerca de los cupos se abre la puerta de la sala y se dirigue a inscripciones.
+
+Como diferencias podemos observar que en el sistema A solo una persona puede estar en la universidad al mismo tiempo, en cambio, en el sistema B muchas personas pueden estar en la universidad simultáneamente.   
+
+Como mejora para el sistema A, al ingresar a la universidad se podría aprovechar para consultar a varios profesores acerca de sus cupos, así al esuchar otra solicitud podría saber inmediatamente si se puede llevar a cabo la inscripcion e ir directamente a inscripciones (para esto es necesario saber cuantos trabajadores hay y que tan rápido trabajan para aseugrar la confiabilidad).  
+
+Como mejora para el sistema B sería que cada persona maneje varias solicitudes a la vez (pero no demasiadas), aprovechando que puede ingresar en la universidad, de esta forma una puede realizar varias inscripciones a la vez de forma confiable.  
+
 
 
