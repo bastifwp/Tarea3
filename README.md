@@ -1,4 +1,24 @@
 # Tarea3-SD
+---
+### Integrantes  
+
+Tarea 3 de Sistemas Distribuidos realizado por integrantes del Grupo 5:  
+Ignacio Alfaro 202173085-0  
+Scarleth Bazaes 202173015-K  
+Bastián Wohlwend 202173006-0  
+
+---
+### Consideraciones  
+
+No hay consideraciones
+
+---
+### Instrucciones de uso
+
+---
+### Preguntas teóricas
+
+
 
 **¿Qué ocurre cuando n=1 en ambos sistemas?**  
 R: En ambos sistemas sólo se genera una go routina, por lo tanto este proceso siempre tendrá el token, realizando la tarea secuancialmente por si sólo (leer solicitud, modificar estructura de datos e inscribir en inscripciones).
